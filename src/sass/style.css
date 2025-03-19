@@ -588,27 +588,51 @@ background-color: white;
    
  }
  
-/* Общие стили для мобильных устройств */
+/* Основные стили для мобильных устройств */
 @media (max-width: 768px) {
-  /* Навигационная панель */
+  .container {
+      width: 100%;
+      padding: 0 15px;
+  }
+
   .navigate .navi-items {
+      display: flex;
       flex-direction: column;
       align-items: center;
   }
 
-  .navigate .navi-items .obnav {
-      margin: 10px 0;
+  .navigate .navi-items a {
+      display: block;
+      padding: 10px;
+      font-size: 18px;
   }
 
-  .navigate .navi-items .img_school_logo {
-      width: 100px;
+  .img_school_logo {
+      width: 80px;
+      height: auto;
+  }
+
+  /* FAQ секция */
+  .faq-section {
+      max-width: 100%;
+      padding: 10px;
+  }
+
+  .faq-item h3 {
+      font-size: 16px;
+  }
+
+  .faq-item p {
+      font-size: 14px;
   }
 
   /* Контактная форма */
   .contact-container {
       flex-direction: column;
+      align-items: center;
   }
 
+  .contact-info,
   .contact-form {
       width: 100%;
   }
@@ -616,113 +640,15 @@ background-color: white;
   .contact-form input,
   .contact-form textarea {
       width: 100%;
+      font-size: 16px;
   }
 
-  .contact-form button {
-      width: 100%;
-  }
-
-  /* Карта */
-  .map {
+  .map iframe {
       width: 100%;
       height: 300px;
   }
-
-  /* Модули */
-  .accordion-header {
-      font-size: 16px;
-  }
-
-  .accordion-content {
-      font-size: 14px;
-  }
-
-  /* Форум */
-  .container1 {
-      width: 100% !important;
-  }
-
-  .forum .thread,
-  .forum .comment,
-  .forum .reply {
-      width: 100%;
-  }
-
-  .forum .form-container input,
-  .forum .form-container button {
-      width: 100%;
-  }
-
-  /* Помощь */
-  .faq-section {
-      width: 100%;
-  }
-
-  .faq-item h3 {
-      font-size: 16px;
-  }
-
-  .faq-item p {
-      font-size: 14px;
-  }
 }
 
-/* Стили для очень маленьких устройств */
-@media (max-width: 480px) {
-  /* Навигационная панель */
-  .navigate .navi-items .obnav a {
-      font-size: 14px;
-  }
-
-  /* Контактная форма */
-  .contact-form h3 {
-      font-size: 18px;
-  }
-
-  .contact-form input,
-  .contact-form textarea {
-      font-size: 14px;
-  }
-
-  .contact-form button {
-      font-size: 14px;
-  }
-
-  /* Карта */
-  .map {
-      height: 200px;
-  }
-
-  /* Модули */
-  .accordion-header {
-      font-size: 14px;
-  }
-
-  .accordion-content {
-      font-size: 12px;
-  }
-
-  /* Форум */
-  .forum .thread,
-  .forum .comment,
-  .forum .reply {
-      font-size: 14px;
-  }
-
-  .forum .form-container input,
-  .forum .form-container button {
-      font-size: 14px;
-  }
-
-  /* Помощь */
-  .faq-item h3 {
-      font-size: 14px;
-  }
-
-  .faq-item p {
-      font-size: 12px;
-  }
-}
 
 
 
