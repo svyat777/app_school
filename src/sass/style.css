@@ -588,13 +588,14 @@ background-color: white;
    
  }
  
-/* Основные стили для мобильных устройств */
-@media (max-width: 768px) {
+/* Улучшенная адаптивность для мобильных и планшетов */
+@media (max-width: 1024px) {
   .container {
       width: 100%;
       padding: 0 15px;
   }
 
+  /* Адаптивная навигация */
   .navigate .navi-items {
       display: flex;
       flex-direction: column;
@@ -603,17 +604,20 @@ background-color: white;
 
   .navigate .navi-items a {
       display: block;
-      padding: 10px;
+      padding: 12px;
       font-size: 18px;
+      text-align: center;
   }
 
   .img_school_logo {
-      width: 80px;
+      width: 70px;
       height: auto;
   }
+}
 
-  /* FAQ секция */
-  .faq-section {
+@media (max-width: 768px) {
+  /* Улучшенный мобильный дизайн */
+  .faq-section, .contact-container {
       max-width: 100%;
       padding: 10px;
   }
@@ -632,20 +636,50 @@ background-color: white;
       align-items: center;
   }
 
-  .contact-info,
-  .contact-form {
+  .contact-info, .contact-form {
       width: 100%;
   }
 
-  .contact-form input,
-  .contact-form textarea {
+  .contact-form input, .contact-form textarea {
       width: 100%;
       font-size: 16px;
   }
 
+  .contact-form button {
+      width: 100%;
+      padding: 12px;
+  }
+
+  /* Карта */
   .map iframe {
       width: 100%;
       height: 300px;
+  }
+
+  /* Улучшенное бургер-меню */
+  .navigate {
+      position: relative;
+  }
+
+  .burger-menu {
+      display: block;
+      cursor: pointer;
+      font-size: 24px;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+  }
+
+  .burger-menu.active + .navi-items {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 }
 
