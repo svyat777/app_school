@@ -1,0 +1,594 @@
+/*!
+ * Bootstrap Reboot v4.3.1 (https://getbootstrap.com/)
+ * Copyright 2011-2019 The Bootstrap Authors
+ * Copyright 2011-2019 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ */
+ @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap");
+ *, ::after, ::before {
+   box-sizing: border-box;
+ }
+ .home_page{
+ height: 900px;
+ padding-top: -50px;
+ background: url(../img/n3.jpg) center center / cover no-repeat;
+ transform: scale(-1, 1);
+ }
+ 
+ .container_mirror{
+ transform: scale(-1, 1);
+ }
+ 
+ .home_page .container{
+   padding-top: 100px;
+   
+ }
+ 
+ .home_page2{
+   height: 100%;
+   padding-top: 160px;
+ }
+ 
+ .home_page4{
+   padding-top: 50px;
+   background: url(../img/n3.jpg) center center / cover no-repeat;
+   transform: scale(-1, 1);
+   padding-bottom: 50px;
+ }
+ 
+ .h2_contact{
+   padding-bottom: 30px;
+ }
+ 
+ .contact-section {
+   transform: scale(-1, 1);
+   text-align: center;
+   padding: 50px 20px;
+   background: #000000; /* Оранжевый фон */
+   color: #E6FFE6;
+   border-radius: 15px;
+   max-width: 800px;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+   border: 2px solid white;
+   margin: 150px auto;
+   margin-right: 100px;
+ }
+ 
+ .contact-container {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   gap: 20px;
+ }
+ 
+ .img_school_logo{
+   height: 40px;
+   align-items: center;
+ }
+ 
+ 
+ 
+ 
+ .contact-info, .contact-form {
+   flex: 1;
+   min-width: 300px;
+ }
+ 
+ .contact-info a {
+   color: #E6FFE6;
+   text-decoration: none;
+   font-weight: bold;
+ }
+ 
+ .curse_arrow{
+   font-size: 60px;
+   text-align: center;
+   padding-bottom: 20px;
+ }
+ 
+ .contact-info{
+   padding-top: 30px;
+ }
+ 
+/* Стили для универсального модального окна */
+#commentModal .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+#commentModal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+#commentModal .button {
+  padding: 8px 16px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+#commentModal .button:hover {
+  color:beige;
+  transition: all 0.3s ease;
+  background-color: #32FF96;
+}
+
+ 
+ .contact-form form {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+ }
+
+/* Стили для формы комментариев */
+.comment-form, .reply-form {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.comment-form textarea, .reply-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.comment-form button, .reply-form button {
+  padding: 8px 16px;
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.comment-form button:hover, .reply-form button:hover {
+  color:beige;
+  transition: all 0.3s ease;
+  background-color: #32FF96;
+}
+
+/* Стили для иконок (если хотите добавить иконки) */
+.comment-form button::before, .reply-form button::before {
+  content: "💬"; /* Иконка для комментария */
+  margin-right: 5px;
+}
+
+.button_registr_modal{
+  margin-top: 10px !important;
+  width: 70%;
+}
+
+.green_p{
+  color: #00a550;
+}
+
+.registr_inline{
+  padding-top: 10px;
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 20px;
+} 
+
+.registr_inline input{
+  margin-right: 10px;
+}
+ .contact-form input, 
+ .contact-form textarea {
+   width: 100%;
+   padding: 10px;
+   border: none;
+   border-radius: 5px;
+   font-size: 16px;
+ }
+ 
+ .contact-form button {
+   background: #000000;
+   color: #ffffff;
+   font-size: 16px;
+   font-weight: bold;
+   padding: 10px;
+   border: none;
+   cursor: pointer;
+   border-radius: 5px;
+   transition: 0.3s;
+ }
+ 
+ .contact-form button:hover {
+   background: #32FF96;
+   color: white;
+ }
+ 
+ .items2{
+   padding-right: 50px;
+ }
+ 
+ h2.h2_homepage{
+   font-size: 30px;
+   color: #000000;
+   font-weight: bold;
+ }
+ .h2_mod{
+   font-size: 50px;
+   padding-left: 23%;
+   font-weight: bold;
+   color: #000000;
+ }
+ 
+ .h2_modulos{
+   font-size: 40px;
+   padding-top: 30px;
+   padding-bottom: 30px;
+   text-align: center;
+ }
+ 
+ .objetivos{
+   font-size: 40px;
+   padding-bottom: 40px;
+   padding-top: 30px;
+ }
+ 
+ .cont{
+   font-size: 40px;
+   padding-bottom: 40px;
+   padding-top: 40px;
+ }
+ 
+ li{
+   font-size: 20px;
+   padding-top: 5px;
+ 
+ }
+ 
+ .accordion {
+   width: 100%;
+   border-radius: 7px !important;
+ }
+ 
+ .accordion-item {
+   border-bottom: 2px solid #ffffff !important;
+   background-color: #ffffff !important;
+   
+ }
+ 
+ .accordion-header {
+   font-weight: bold;
+   color: #ffffff;
+   width: 100%;
+   padding: 15px;
+   background: #000000;
+   border: none;
+   text-align: left;
+   font-size: 18px;
+   cursor: pointer;
+   display: flex;
+   justify-content: space-between; /* Стрелка справа */
+   align-items: center;
+   transition: background 0.3s;
+   text-decoration: underline;
+ }
+ 
+ .accordion-header.active {
+   background: #32FF96;
+   color: white;
+   font-weight: bolder;
+ }
+ 
+ .map_text{
+   color: rgb(0, 0, 0);
+   font-weight: bold;
+   font-size: 80px;
+   padding-left: 50px;
+   width: 100%;
+ }
+ 
+ .accordion-content {
+   max-height: 0;
+   overflow: hidden;
+   transition: max-height 0.3s ease-out;
+   padding: 0 15px;
+   background: #ffffff;
+ }
+ 
+ .map_sec .container{
+   display: flex;
+     justify-content: left; /* Горизонтальное выравнивание */
+     align-items: center;     /* Вертикальное выравнивание */
+     height: 80vh;  
+   margin: 20px;
+   padding-top: 50px;
+ }
+ 
+ .container .map{
+   height: 600px;
+   width: 100%; /* Ширина блока */
+     padding: 20px;
+     background-color: #f0f0f0;
+     text-align: center
+ }
+ 
+ .arrow {
+   transition: transform 0.3s ease;
+   color: #ffffff;
+ }
+ 
+ .active .arrow {
+   transform: rotate(180deg); /* Поворачиваем стрелку вверх */
+ }
+ 
+ 
+ .pageup{
+   display: block;
+   position: fixed;
+   bottom: 40px;
+   right: 40px;
+   width: 40px;
+   height: 40px;
+   border: none;
+   border-radius: none;
+   z-index: 1000;
+ }
+ 
+ .pageup:hover{
+   display: block;
+   position: fixed;
+   bottom: 35px;
+   right: 35px;
+   width: 50px;
+   height: 50px;
+   border: 5px solid white;
+   border-radius: 30px;
+   animation-name: heartan;
+   animation-duration: 2.0s;
+   animation-timing-function: ease;
+   animation-iteration-count: infinite;
+ 
+ 
+   
+ 
+ }  
+ 
+ 
+ .pageup img{
+   width: 100%;
+   
+ }
+ 
+ .objetivos_text{
+ font-size: 20px;
+ color: #000000;
+ }
+ 
+ .curse{
+   font-size: 60px;
+   color: #000000;
+   font-weight: bold;
+ }
+ .curse_mod{
+   font-size: 60px;
+   text-align: center;
+   padding-bottom: 20px;
+   color: #000000;
+ }
+ 
+ 
+ .hp_about_curse{
+   padding-top: 50px;
+   font-size: 20px;
+   color: #000000;
+   font-weight: bold;
+ }
+ 
+ .bg_for_hm{
+   font-weight: bold;
+   color: #121416;
+ }
+ 
+.home_page_forum{
+background-color: white;
+ }
+
+
+.button .button_long{
+  width: 150px;
+}
+
+.modal{
+  width: 400px;
+  height: 400px;
+}
+
+ html {
+   font-family: sans-serif;
+   line-height: 1.15;
+   
+   -webkit-tap-highlight-color: transparent;
+ }
+ 
+ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+   display: block;
+ }
+ 
+ body {
+   
+   
+   background-repeat: repeat;  
+   background-size: auto;  
+   
+   margin: 0;
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1.5;
+  
+   text-align: left;
+   background-color: rgb(255, 255, 255)!important;
+ 
+ }
+ 
+ [tabindex="-1"]:focus {
+   outline: 0 !important;
+ }
+ 
+ hr {
+   box-sizing: content-box;
+   height: 0;
+   overflow: visible;
+ }
+ 
+ .navigate .container{
+     margin: 0;
+     padding: 0;
+     
+     max-width: 100%;
+     
+     
+     transition: 0.5s all;
+     list-style-type: none;
+     z-index: 2;
+ }
+ 
+ .navigate .navi-items{
+   border-bottom: 2px solid white;
+     background-color: #000000;
+     padding: 10px 10px 10px 10px;
+     width: 100%;
+     height: 10%;
+     font-size: 20px;
+     font-weight: bold;
+     display: flex;
+     justify-content: space-around;
+     flex-wrap: nowrap;
+     margin: 0;
+     text-align: center;
+     list-style-type: none;
+     transition: 0.5s all;
+     
+ 
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ .obnav{
+     
+     background-color: rgb(0, 0, 0);
+     border: none;
+     display: grid;
+     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+     height: 40px;
+     
+     
+ }
+ 
+ .obnav{
+   background-color: #000000;
+   border-radius: 2px;
+   width: 15%;
+   
+   list-style-type: none;
+ }
+ 
+ 
+ 
+ 
+ .navi_item{
+     text-transform: uppercase;
+     cursor: pointer;
+     text-decoration: none;
+     color: #a8a8a8;
+     display: block;
+     display: grid;
+     grid-template-rows: repeat(1, minmax(0px, 40px)) ;
+     
+     
+ 
+ }
+ 
+ .navi_item:hover{
+     color: #ffffff;
+ }
+ 
+ 
+ 
+ 
+ .navi_item {
+   padding-top: 7px;
+   font-size: 16px; /* Обычный размер текста */
+   transition: all 0.3s ease; /* Плавные анимации */
+ }
+ 
+ .navi_item.active {
+   padding-top: 4px;
+   pointer-events: none; /* Отключает клик */
+   color: #000000; /* Темнее обычного */
+   font-weight: bold; /* Делаем жирной */
+   font-size: 20px; /* Чуть больше обычных */
+   transform: scale(1.5); /* Немного увеличиваем кнопку */
+   box-shadow: none; /* Убираем тени */
+   outline: none; /* Отключаем обводку */
+ }
+ 
+ .navi_item.active:hover, 
+ .navi_item.active:focus, 
+ .navi_item.active:active {
+   color: #ffffff; /* Оставляем цвет таким же */
+   cursor: default; /* Убираем эффект указателя */
+   box-shadow: none; /* Убираем тени */
+   outline: none; /* Полностью отключаем обводку */
+   transform: scale(1.1); /* Фиксируем увеличенный размер */
+ }
+ 
+ 
+ 
+ 
+ .obnav:active{
+     color:beige;
+     background-color: #32FF96;
+     
+    
+     
+ }
+ .obnav:hover{
+   color:rgb(255, 255, 255);
+   background-color: #32FF96;
+   border: none;
+   
+ }
+ 
+
+
+
+

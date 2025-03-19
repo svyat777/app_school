@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="src/sass/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+        .error-message {
+            color: #ff0000; /* Красный цвет для ошибок */
+            font-size: 14px;
+            margin-top: 5px;
+            display: none; /* По умолчанию скрыто */
+        }
+
+        .success-message {
+            color: #008000; /* Зеленый цвет для успешной отправки */
+            font-size: 14px;
+            margin-top: 10px;
+            display: none; /* По умолчанию скрыто */
+        }
+
+        input:invalid, textarea:invalid {
+            border-color: #ff0000; /* Красная рамка для невалидных полей */
+        }
+
+        input:valid, textarea:valid {
+            border-color: #00ff00; /* Зеленая рамка для валидных полей */
+        }
+    </style>
+</head>
+<body>
+    <section class="navigate">
+        <div class="container">
+            <div class="navi-items">
+                <a href="contact.html#mapa"><img src="src/img/school_logo.png" alt="" class="img_school_logo"></a>
+                <div class="obnav"><a href="index.html" class="navi_item">home page</a></div>
+                <div class="obnav"><a href="modules.html" class="navi_item">modules</a></div>
+                <div class="obnav"><a href="contact.html" class="navi_item">contacts</a></div>
+                <div class="obnav"><a href="forum.html" class="navi_item">forum</a></div>
+                <div class="obnav"><a href="help.html" class="navi_item"  >help</a></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="home_page4">
+        <div class="contact-section">
+            <h2 class="h2_contact">CONTACT US!</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p><strong>📍 A NOSSA MORADA:</strong><br> Rua do Matadouro, n.º 22 Figueira da Foz</p>
+                    <p><strong>📞 O NOSSO TELEFONE:</strong> <a href="tel:+351233428926">(+351) 233 428 926</a></p>
+                    <p><strong>📧 O NOSSO EMAIL:</strong> <a href="mailto:geral@epff-intep.pt">geral@epff-intep.pt</a></p>
+                </div>
+                <div class="contact-form">
+                    <h3>WRITE US!</h3>
+                    <form id="contactForm">
+                        <input type="text" id="name" name="name" placeholder="your name" required>
+                        <div id="nameError" class="error-message"></div> <!-- Сообщение об ошибке для имени -->
+
+                        <input type="email" id="email" name="email" placeholder="your Email" required>
+                        <div id="emailError" class="error-message"></div> <!-- Сообщение об ошибке для email -->
+
+                        <textarea id="message" name="message" placeholder="your message" required></textarea>
+                        <div id="messageError" class="error-message"></div> <!-- Сообщение об ошибке для сообщения -->
+
+                        <button type="submit">SEND</button>
+                    </form>
+                    <div id="successMessage" class="success-message"></div> <!-- Сообщение об успешной отправке -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map_sec" id="mapa">
+        <div class="container">
+            <div class="col-xl-8 col-lg-12">
+                <div class="new">
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12198.142470569568!2d-8.864136647687625!3d40.15262679456247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2237e66391495d%3A0xd3137e4a931b0b9d!2sEPFF-INTEP%20Figueira%20da%20Foz!5e0!3m2!1spt-PT!2spt!4v1739976069021!5m2!1spt-PT!2spt" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <p class="map_text">you can found us here!</p>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name");
+            const email = document.getElementById("email");
+            const message = document.getElementById("message");
+
+            const nameError = document.getElementById("nameError");
+            const emailError = document.getElementById("emailError");
+            const messageError = document.getElementById("messageError");
+            const successMessage = document.getElementById("successMessage");
+
+            // Очищаем предыдущие сообщения об ошибках
+            nameError.textContent = "";
+            emailError.textContent = "";
+            messageError.textContent = "";
+            successMessage.textContent = "";
+
+            let isValid = true;
+
+            // Проверка имени
+            if (name.value.trim() === "") {
+                isValid = false;
+                nameError.textContent = "Please enter your name.";
+                nameError.style.display = "block";
+            } else {
+                nameError.style.display = "none";
+            }
+
+            // Проверка email с использованием регулярного выражения
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Проверка на наличие точки после @
+            if (!emailPattern.test(email.value)) {
+                isValid = false;
+                if (!email.value.includes("@")) {
+                    emailError.textContent = "Please include an '@' in the email address. Your email is missing the '@' symbol.";
+                } else if (!email.value.includes(".")) {
+                    emailError.textContent = "Please include a domain in the email address (e.g., '.com', '.pt'). Your email is missing the domain (e.g., '.com').";
+                } else {
+                    emailError.textContent = "Please enter a valid email address (e.g., example@domain.com).";
+                }
+                emailError.style.display = "block";
+            } else {
+                emailError.style.display = "none";
+            }
+
+            // Проверка сообщения
+            if (message.value.trim() === "") {
+                isValid = false;
+                messageError.textContent = "Please enter your message.";
+                messageError.style.display = "block";
+            } else {
+                messageError.style.display = "none";
+            }
+
+            // Если форма валидна, отправляем данные
+            if (isValid) {
+                const formData = {
+                    name: name.value,
+                    email: email.value,
+                    message: message.value
+                };
+
+                fetch("https://formspree.io/f/xbldqagd", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        successMessage.textContent = "Message sent successfully!";
+                        successMessage.style.display = "block";
+                        // Очищаем форму после успешной отправки
+                        document.getElementById("contactForm").reset();
+                    } else {
+                        successMessage.textContent = "Error sending message.";
+                        successMessage.style.color = "#ff0000"; // Красный цвет для ошибки отправки
+                        successMessage.style.display = "block";
+                    }
+                })
+                .catch(error => {
+                    successMessage.textContent = "An error occurred: " + error;
+                    successMessage.style.color = "#ff0000"; // Красный цвет для ошибки
+                    successMessage.style.display = "block";
+                });
+            }
+        });
+    </script>
+</body>
+</html>

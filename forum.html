@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="src/sass/style.css">
+    <style>
+        
+        .container1 { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        .thread, .comment, .reply { border: 1px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 5px; background: #f9f9f9; }
+        .reply { margin-left: 20px; border-left: 3px solid #007BFF; padding-left: 10px; }
+        .user { font-weight: bold; color: #000000; }
+        .form-container { margin-top: 20px; }
+        .form-container input, .form-container button { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+        .form-container button { background: #007BFF; color: white; cursor: pointer; }
+        .form-container button:disabled { background: #ccc; cursor: not-allowed; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid black;
+            border-radius: 8px;
+        }
+
+        .container1{
+            width: 700px !important;
+        }
+
+
+        .topic, .post, .comment {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .topic h2, .post h3, .comment h4 {
+            margin-top: 0;
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            color:beige;
+  transition: all 0.6s ease;
+  background-color: #32FF96;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .button {
+            border: none;
+            font-size: 18px;
+            text-transform: uppercase;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #000000;
+            color: #d3d3d3;
+            text-decoration: none;
+            transition: all 0.6s ease;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .button:hover {
+            color: rgb(255, 255, 255);
+            background-color: #32FF96;
+            border: none;
+        }
+
+        /* Стили для модальных окон */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px !important;
+            text-align: center;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+        }
+
+        
+
+        /* Стили для кнопок */
+.delete-comment-btn, .reply-btn, .reply-to-reply-btn, .delete-reply-btn, .delete-reply-to-reply-btn, .add-comment-btn, .delete-topic-btn{
+  padding: 5px 17px;
+  margin: 5px;
+  background-color: rgb(20, 20, 20);
+  font-size: 18px;
+  color: #d6d6d6;
+  border-radius: 6px;
+  border: none;
+}
+
+.reply-btn:hover, .reply-to-reply-btn:hover,  .add-comment-btn:hover {
+  color:beige;
+  transition: all 0.3s ease;
+  background-color: #32FF96;
+  transform: scale(1.1);
+}
+
+.delete-reply-to-reply-btn:hover, .delete-reply-btn:hover, .delete-comment-btn:hover, .delete-topic-btn:hover{
+    color:beige;
+  transition: all 0.3s ease;
+  background-color: #e92a2a;
+  transform: scale(1.1);  
+}
+
+    </style>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <section class="navigate">
+        <div class="container">
+            <div class="navi-items">
+                
+                
+                <a href="contact.html#mapa"><img src="src/img/school_logo.png" alt="" class="img_school_logo"></a>
+                <div class="obnav"><a href="index.html" class="navi_item"  >home page</a></div>
+                <div class="obnav"><a href="modules.html" class="navi_item"  >modules</a></div>
+                <div class="obnav"><a href="contact.html" class="navi_item"  >contacts</a></div>
+                <div class="obnav"><a href="forum.html" class="navi_item"  >forum</a></div>
+                <div class="obnav"><a href="help.html" class="navi_item"  >help</a></div>
+                
+            </div>
+        </div>
+    </section>
+
+<section class="home_page_forum">
+    <div class="container container1" id="container">
+        <h1>welcome to forum!</h1>
+        <p>choose activity:</p>
+        <button class="button" onclick="openRegisterModal()">register</button>
+        <button class="button" onclick="openLoginModal()">sign in</button>
+    </div>
+
+    <!-- Модальное окно для регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Registration</h2>
+            <div id="registerError" class="error-message"></div>
+            <form id="registrationForm">
+                <input type="text" name="username" placeholder="user name" required>
+                <input type="password" name="password" placeholder="password" required> <br>
+                <p class="registr_inline"><input  type="radio" id="teacher" name="choice" value="teacher">teacher</p> 
+                <p class="registr_inline"><input  class="registr_inline" type="radio" id="student" name="choice" value="student">student</p> <br>
+                <button class="button button_registr_modal" type="submit" id="registerButton">register</button>
+            </form>            
+            
+        </div>
+    </div>
+
+        <!-- Универсальное модальное окно для комментариев, ответов и ответов на ответы -->
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCommentModal()">&times;</span>
+            <h2 id="modalTitle">Add Comment</h2>
+            <textarea id="commentText" placeholder="Write your message..."></textarea>
+            <button class="button" onclick="submitComment()">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerButton').removeAttribute('disabled');
+        </script>
+
+    <!-- Модальное окно для авторизации -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>SIGN IN</h2>
+            <div id="loginError" class="error-message"></div>
+            <form id="loginForm">
+                <input type="text" name="username" placeholder="user name" required>
+                <input type="password" name="password" placeholder="password" required><br>
+                <button class="button button_registr_modal" type="submit" id="loginButton">SIGN</button>
+            </form>            
+        </div>
+    </div>
+
+    <div class="container container1">
+        <h1>FORUM</h1>
+        <div>
+            <label for="username">your username:</label>
+            <input type="text" id="username" readonly>
+        </div>
+        <div id="forum"></div>
+        <div class="form-container">
+            <input type="text" id="threadTitle" placeholder="topic name">
+            <button class="topic_button" id="addThreadBtn" onclick="addThread()" disabled>add topic</button>
+        </div>
+    </div>
+</section>
+    <script>
+// Переменные для хранения контекста
+let currentAction = null; // Может быть 'comment', 'reply', 'replyToReply'
+let currentTopicIndex = null;
+let currentPostIndex = null;
+let currentReplyIndex = null;
+
+// Функция для открытия модального окна
+// Функция для открытия модального окна
+function openCommentModal(action, topicIndex, postIndex = null, replyIndex = null) {
+    currentAction = action;
+    currentTopicIndex = topicIndex;
+    currentPostIndex = postIndex;
+    currentReplyIndex = replyIndex;
+
+    // Устанавливаем заголовок модального окна в зависимости от действия
+    const modalTitle = document.getElementById('modalTitle');
+    if (action === 'comment') {
+        modalTitle.textContent = 'Add Comment';
+    } else if (action === 'reply') {
+        modalTitle.textContent = 'Add Reply';
+    } else if (action === 'replyToReply') {
+        modalTitle.textContent = 'Add Reply to Reply';
+    }
+
+    document.getElementById('commentModal').style.display = 'flex';
+}
+
+// Функция для закрытия модального окна
+function closeCommentModal() {
+    document.getElementById('commentModal').style.display = 'none';
+    document.getElementById('commentText').value = ''; // Очищаем поле
+}
+
+// Функция для отправки комментария, ответа или ответа на ответ
+// Функция для отправки комментария, ответа или ответа на ответ
+function submitComment() {
+    const commentText = document.getElementById('commentText').value;
+    const author = getUsername();
+
+    if (!commentText || !author) {
+        alert("Please enter a message.");
+        return;
+    }
+
+    if (currentAction === 'comment') {
+        // Добавляем новый комментарий к теме
+        const newPost = {
+            author: author,
+            content: commentText,
+            replies: []
+        };
+        topics[currentTopicIndex].posts.push(newPost);
+    } else if (currentAction === 'reply') {
+        // Добавляем ответ на комментарий
+        const newReply = {
+            author: author,
+            content: commentText
+        };
+        topics[currentTopicIndex].posts[currentPostIndex].replies.push(newReply);
+    } else if (currentAction === 'replyToReply') {
+        // Добавляем ответ на ответ
+        const newReplyToReply = {
+            author: author,
+            content: commentText
+        };
+        if (!topics[currentTopicIndex].posts[currentPostIndex].replies[currentReplyIndex].replies) {
+            topics[currentTopicIndex].posts[currentPostIndex].replies[currentReplyIndex].replies = [];
+        }
+        topics[currentTopicIndex].posts[currentPostIndex].replies[currentReplyIndex].replies.push(newReplyToReply);
+    }
+
+    saveTopics();
+    loadPosts(currentTopicIndex);
+    closeCommentModal();
+}
+
+
+
+
+
+
+
+async function addThread() {
+    const title = document.getElementById("threadTitle").value;
+    const author = document.getElementById("username").value;
+
+    if (!title || !author) return;
+
+    const response = await fetch('add_topic.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, user_id: 1 }), // Замените 1 на реальный ID пользователя
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+        loadTopics(); // Перезагружаем список тем
+        document.getElementById("threadTitle").value = "";
+    } else {
+        alert(result.message);
+    }
+}
+async function loadMessages(topicId) {
+    const response = await fetch(`get_messages.php?topic_id=${topicId}`);
+    const result = await response.json();
+
+    if (result.success) {
+        const commentsDiv = document.getElementById(`comments-${topicId}`);
+        commentsDiv.innerHTML = ""; // Очищаем текущие сообщения
+
+        result.messages.forEach(message => {
+            const comment = document.createElement("div");
+            comment.className = "comment";
+            comment.innerHTML = `
+                <div class='user'>${message.author}:</div> ${message.message}
+            `;
+            commentsDiv.appendChild(comment);
+        });
+    }
+}
+document.addEventListener("DOMContentLoaded", function () {
+    loadTopics(); // Загружаем темы при загрузке страницы
+});
+
+let topics = JSON.parse(localStorage.getItem('topics')) || [];
+
+function saveTopics() {
+    localStorage.setItem('topics', JSON.stringify(topics));
+}
+
+function loadTopics() {
+    const forum = document.getElementById("forum");
+    forum.innerHTML = ""; // Очищаем текущий список тем
+
+    topics.forEach((topic, index) => {
+        const thread = document.createElement("div");
+        thread.className = "thread";
+        thread.innerHTML = `
+            <div class='user'>${topic.author}:</div> ${topic.title}
+            ${getUsername() === topic.author ? `<button class="delete-topic-btn" onclick='deleteTopic(${index})'>Delete Topic</button>` : ''}
+            <div class='posts' id='posts-${index}'></div>
+        `;
+        forum.appendChild(thread);
+
+        // Автоматически загружаем комментарии для каждой темы
+        loadPosts(index);
+    });
+}
+
+function addThread() {
+    const title = document.getElementById("threadTitle").value;
+    const author = getUsername();
+
+    if (!title || !author) return;
+
+    const newTopic = {
+        id: topics.length,
+        title: title,
+        author: author,
+        posts: []
+    };
+
+    topics.push(newTopic);
+    saveTopics();
+    loadTopics();
+    document.getElementById("threadTitle").value = "";
+}
+
+function deleteTopic(index) {
+    if (getUsername() === topics[index].author) {
+        topics.splice(index, 1);
+        saveTopics();
+        loadTopics(); // Перезагружаем список тем
+    } else {
+        alert("Вы не можете удалить эту тему, так как вы не являетесь её автором.");
+    }
+}
+
+function addPost(index) {
+    const commentText = document.getElementById(`comment-${index}`).value;
+    const author = getUsername();
+
+    if (!commentText || !author) return;
+
+    const newPost = {
+        author: author,
+        content: commentText,
+        replies: []
+    };
+
+    topics[index].posts.push(newPost);
+    saveTopics();
+    loadPosts(index);
+}
+
+function deletePost(topicIndex, postIndex) {
+    if (getUsername() === topics[topicIndex].posts[postIndex].author) {
+        topics[topicIndex].posts.splice(postIndex, 1);
+        saveTopics();
+        loadPosts(topicIndex);
+    } else {
+        alert("Вы не можете удалить этот комментарий, так как вы не являетесь его автором.");
+    }
+}
+
+function loadPosts(index) {
+    const postsDiv = document.getElementById(`posts-${index}`);
+    postsDiv.innerHTML = ""; // Очищаем текущие сообщения
+
+    topics[index].posts.forEach((post, postIndex) => {
+        const postElement = document.createElement("div");
+        postElement.className = "post";
+        postElement.innerHTML = `
+            <div class='user'>${post.author}:</div> ${post.content}
+            ${getUsername() === post.author ? `<button class="delete-comment-btn " onclick='deletePost(${index}, ${postIndex})'>Delete Comment</button>` : ''}
+            <button class="reply-btn" onclick='openCommentModal("reply", ${index}, ${postIndex})'>Reply</button>
+            <div class='replies' id='replies-${index}-${postIndex}'></div>
+        `;
+        postsDiv.appendChild(postElement);
+
+        // Автоматически загружаем ответы для каждого комментария
+        loadReplies(index, postIndex);
+    });
+
+    // Кнопка для добавления комментария
+    const addCommentButton = document.createElement("button");
+    addCommentButton.innerText = "Add Comment";
+    addCommentButton.className = "add-comment-btn";
+    addCommentButton.onclick = () => openCommentModal('comment', index);
+    postsDiv.appendChild(addCommentButton);
+}
+
+function addReply(topicIndex, postIndex) {
+    const replyText = document.getElementById(`reply-${topicIndex}-${postIndex}`).value;
+    const author = getUsername();
+
+    if (!replyText || !author) return;
+
+    const newReply = {
+        author: author,
+        content: replyText
+    };
+
+    topics[topicIndex].posts[postIndex].replies.push(newReply);
+    saveTopics();
+    loadReplies(topicIndex, postIndex);
+}
+
+function loadReplies(topicIndex, postIndex) {
+    const repliesDiv = document.getElementById(`replies-${topicIndex}-${postIndex}`);
+    repliesDiv.innerHTML = ""; // Очищаем текущие ответы
+
+    topics[topicIndex].posts[postIndex].replies.forEach((reply, replyIndex) => {
+        const replyElement = document.createElement("div");
+        replyElement.className = "reply";
+        replyElement.innerHTML = `
+            <div class='user'>${reply.author}:</div> ${reply.content}
+            ${getUsername() === reply.author ? `<button class="delete-reply-btn" onclick='deleteReply(${topicIndex}, ${postIndex}, ${replyIndex})'>Delete Reply</button>` : ''}
+            <button class="reply-to-reply-btn" onclick='openCommentModal("replyToReply", ${topicIndex}, ${postIndex}, ${replyIndex})'>Reply to Reply</button>
+            <div class='reply-to-reply' id='reply-to-reply-${topicIndex}-${postIndex}-${replyIndex}'></div>
+        `;
+        repliesDiv.appendChild(replyElement);
+
+        // Автоматически загружаем ответы на ответы
+        loadRepliesToReply(topicIndex, postIndex, replyIndex);
+    });
+}
+
+function addReplyToReply(topicIndex, postIndex, replyIndex) {
+    const replyText = document.getElementById(`reply-to-reply-${topicIndex}-${postIndex}-${replyIndex}`).value;
+    const author = getUsername();
+
+    if (!replyText || !author) return;
+
+    const newReplyToReply = {
+        author: author,
+        content: replyText
+    };
+
+    if (!topics[topicIndex].posts[postIndex].replies[replyIndex].replies) {
+        topics[topicIndex].posts[postIndex].replies[replyIndex].replies = [];
+    }
+
+    topics[topicIndex].posts[postIndex].replies[replyIndex].replies.push(newReplyToReply);
+    saveTopics();
+    loadRepliesToReply(topicIndex, postIndex, replyIndex);
+}
+
+function loadRepliesToReply(topicIndex, postIndex, replyIndex) {
+    const repliesToReplyDiv = document.getElementById(`reply-to-reply-${topicIndex}-${postIndex}-${replyIndex}`);
+    repliesToReplyDiv.innerHTML = ""; // Очищаем текущие ответы на ответы
+
+    if (topics[topicIndex].posts[postIndex].replies[replyIndex].replies) {
+        topics[topicIndex].posts[postIndex].replies[replyIndex].replies.forEach((replyToReply, replyToReplyIndex) => {
+            const replyToReplyElement = document.createElement("div");
+            replyToReplyElement.className = "reply-to-reply";
+            replyToReplyElement.innerHTML = `
+                <div class='user'>${replyToReply.author}:</div> ${replyToReply.content}
+                ${getUsername() === replyToReply.author ? `<button class="delete-reply-to-reply-btn" onclick='deleteReplyToReply(${topicIndex}, ${postIndex}, ${replyIndex}, ${replyToReplyIndex})'>Delete Reply to Reply</button>` : ''}
+            `;
+            repliesToReplyDiv.appendChild(replyToReplyElement);
+        });
+    }
+}
+
+function deleteReply(topicIndex, postIndex, replyIndex) {
+    if (getUsername() === topics[topicIndex].posts[postIndex].replies[replyIndex].author) {
+        topics[topicIndex].posts[postIndex].replies.splice(replyIndex, 1);
+        saveTopics();
+        loadReplies(topicIndex, postIndex);
+    } else {
+        alert("Вы не можете удалить этот ответ, так как вы не являетесь его автором.");
+    }
+}
+
+function deleteReplyToReply(topicIndex, postIndex, replyIndex, replyToReplyIndex) {
+    if (getUsername() === topics[topicIndex].posts[postIndex].replies[replyIndex].replies[replyToReplyIndex].author) {
+        topics[topicIndex].posts[postIndex].replies[replyIndex].replies.splice(replyToReplyIndex, 1);
+        saveTopics();
+        loadRepliesToReply(topicIndex, postIndex, replyIndex);
+    } else {
+        alert("Вы не можете удалить этот ответ на ответ, так как вы не являетесь его автором.");
+    }
+}
+
+function getUsername() {
+    return document.getElementById("username").value || "Аноним";
+}
+
+
+
+
+
+
+
+
+function addComment(button) {
+    let commentText = prompt("Enter your comment:");
+    if (!commentText) return;
+    let comment = document.createElement("div");
+    comment.className = "comment";
+    comment.innerHTML = `<div class='user'>${getUsername()}:</div> ${commentText}
+        <button class="reply-btn" onclick='addReply(this)'>Reply</button>
+        <div class='replies'></div>`;
+    button.nextElementSibling.appendChild(comment);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('get_username.php')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("username").value = data.username;
+                    if (data.username !== "Аноним") {
+                        document.getElementById("addThreadBtn").disabled = false;
+                    }
+                })
+                .catch(error => console.error('Ошибка загрузки ника:', error));
+        });
+
+function getUsername() {
+    return document.getElementById("username").value || "Аноним";
+}
+        function addComment(button) {
+            let commentText = prompt("Введите комментарий:");
+            if (!commentText) return;
+            let comment = document.createElement("div");
+            comment.className = "comment";
+            comment.innerHTML = `<div class='user'>${getUsername()}:</div> ${commentText}
+                <button onclick='addReply(this)'>Ответить</button>
+                <div class='replies'></div>`;
+            button.nextElementSibling.appendChild(comment);
+        }
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    // Функции для открытия модальных окон
+    function openRegisterModal() {
+        document.getElementById('registerModal').style.display = 'flex';
+    }
+
+    function openLoginModal() {
+        document.getElementById('loginModal').style.display = 'flex';
+    }
+
+    // Функция для закрытия модальных окон
+    function closeModal() {
+        document.getElementById('registerModal').style.display = 'none';
+        document.getElementById('loginModal').style.display = 'none';
+    }
+
+    // Закрытие модального окна при клике вне его области
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            closeModal();
+        }
+    }
+
+    // Функция для отображения приветственного сообщения
+    function showWelcomeMessage(username, role) {
+    const container = document.getElementById('container');
+    const usernameField = document.getElementById('username');
+
+    // Обновляем приветственное сообщение
+    container.innerHTML = `
+        <h1>WELCOME, ${username} (${role})!</h1>
+        <p>you successfull enter in system.</p>
+        <button class="button" onclick="logout()">log out</button>
+    `;
+
+    // Обновляем поле с именем пользователя (с ролью)
+    usernameField.value = `${username} (${role})`;
+
+    // Активируем кнопку добавления темы, если пользователь авторизован
+    document.getElementById("addThreadBtn").disabled = false;
+}
+
+    // Функция для выхода (просто пример)
+    function logout() {
+    // Очищаем localStorage
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('username');
+
+    const container = document.getElementById('container');
+    const usernameField = document.getElementById('username');
+
+    // Сбрасываем приветственное сообщение
+    container.innerHTML = `
+        <h1>WELCOME!</h1>
+        <p>choose action:</p>
+        <button class="button" onclick="openRegisterModal()">REGISTER</button>
+        <button class="button" onclick="openLoginModal()">SIGN IN</button>
+    `;
+
+    // Сбрасываем поле с именем пользователя
+    usernameField.value = "";
+
+    // Деактивируем кнопку добавления темы
+    document.getElementById("addThreadBtn").disabled = true;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("registrationForm").addEventListener("submit", submitRegisterForm);
+});
+
+async function submitRegisterForm(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+
+    try {
+        const response = await fetch('register.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        // Проверяем, правильный ли формат ответа (JSON)
+        const text = await response.text();
+        console.log("Ответ сервера:", text); // Логируем ответ сервера
+
+        const result = JSON.parse(text); // Пробуем распарсить JSON
+
+        if (result.success) {
+            closeModal();
+            localStorage.setItem('username', formData.get('username'));
+            updateUIAfterLogin(formData.get('username'), "студент");
+        } else {
+            document.getElementById('registerError').textContent = result.message;
+        }
+    } catch (error) {
+        console.error("Ошибка запроса:", error);
+        document.getElementById('registerError').textContent = "Ошибка при регистрации.";
+    }
+}
+
+async function submitLoginForm(event) {
+    event.preventDefault(); // Остановка стандартной отправки формы
+
+    const formData = new FormData(event.target);
+    const username = formData.get('username'); // Получаем имя пользователя
+    const password = formData.get('password'); // Получаем пароль
+
+    try {
+        const response = await fetch('login.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            const role = result.role || 'студент'; // Получаем роль (если сервер ее передает)
+
+            // Сохраняем данные в localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('userRole', role);
+
+            // Закрываем модальное окно
+            closeModal();
+
+            // Обновляем интерфейс
+            updateUIAfterLogin(username, role);
+        } else {
+            document.getElementById('loginError').textContent = result.message;
+        }
+    } catch (error) {
+        console.error("Ошибка входа:", error);
+        document.getElementById('loginError').textContent = "Ошибка подключения к серверу.";
+    }
+}
+
+// Привязываем обработчик только после определения функции
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("loginForm").addEventListener("submit", submitLoginForm);
+});
+
+function updateUIAfterLogin(username, role) {
+    const container = document.getElementById('container');
+    container.innerHTML = `
+        <h1>WELCOME, ${username} (${role})!</h1>
+        <p class="green_p">you successfull enter in system.</p>
+        <button class="button delete-topic-btn" onclick="logout()">log out</button>
+    `;
+    document.getElementById("username").value = username;
+    document.getElementById("addThreadBtn").disabled = false;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Получаем имя пользователя и роль из localStorage
+    const username = localStorage.getItem('username');
+    const role = localStorage.getItem('userRole');
+
+    if (username && role) {
+        // Если пользователь авторизован, обновляем приветственное сообщение и поле с именем
+        updateUIAfterLogin(username, role);
+    } else {
+        // Если пользователь не авторизован, загружаем данные с сервера
+        fetch('get_username.php')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("username").value = data.username;
+                if (data.username !== "Аноним") {
+                    document.getElementById("addThreadBtn").disabled = false;
+                }
+            })
+            .catch(error => console.error('Ошибка загрузки ника:', error));
+    }
+});
+function deleteComment(commentIndex) {
+    const topicIndex = commentIndex.split('-')[0];
+    const postIndex = commentIndex.split('-')[1];
+
+    if (getUsername() === topics[topicIndex].posts[postIndex].author) {
+        topics[topicIndex].posts.splice(postIndex, 1);
+        saveTopics();
+        loadPosts(topicIndex); // Перезагружаем комментарии
+    } else {
+        alert("Вы не можете удалить этот комментарий, так как вы не являетесь его автором.");
+    }
+}
+function updateDeleteButtons() {
+    const threads = document.querySelectorAll('.thread');
+    threads.forEach(thread => {
+        const author = thread.querySelector('.user').textContent.replace(':', '').trim();
+        if (author === localStorage.getItem('username')) {
+            // Проверяем, есть ли уже кнопка удаления
+            if (!thread.querySelector('button[onclick*="deleteTopic"]')) {
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Удалить тему';
+                deleteButton.onclick = () => deleteTopic(thread.dataset.index);
+                thread.appendChild(deleteButton);
+            }
+        }
+    });
+
+    const comments = document.querySelectorAll('.comment');
+    comments.forEach(comment => {
+        const author = comment.querySelector('.user').textContent.replace(':', '').trim();
+        if (author === localStorage.getItem('username')) {
+            // Проверяем, есть ли уже кнопка удаления
+            if (!comment.querySelector('button[onclick*="deleteComment"]')) {
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Удалить комментарий';
+                deleteButton.onclick = () => deleteComment(comment.dataset.index);
+                comment.appendChild(deleteButton);
+            }
+        }
+    });
+}
+document.getElementById("registrationForm").addEventListener("submit", submitRegisterForm);
+</script>
+    
+
+
+
+
+
+    <script src="src/js/wow.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+            <script src="src/js/script.js"></script>
+            <script src="src/js/jquery.validate.js"></script>
+            <script src="src/js/jquery.maskedinput.js"></script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Получаем имя текущего файла (например, "index.html", "modules.html", "contact.html")
+                    let currentPage = window.location.pathname.split("/").pop().toLowerCase();
+                    if (currentPage === "") currentPage = "index.html"; // Если это главная страница
+                
+                    // Ищем все ссылки в навигации
+                    let links = document.querySelectorAll(".obnav a");
+                
+                    links.forEach(link => {
+                        let linkPage = link.getAttribute("href").toLowerCase(); // Получаем имя файла из href
+                
+                        if (currentPage === linkPage) {
+                            link.classList.add("active"); // Добавляем класс
+                            link.style.pointerEvents = "none"; // Делаем ссылку неактивной
+                            link.style.color = "white"; // Меняем цвет, чтобы показать, что это текущая страница
+                            link.style.fontWeight = "bold"; // Делаем текст жирным
+                        }
+                    });
+                });
+                </script>
+                <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/67b6ee794cd697191188a11c/1ikh97332';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+                
+</body>
+</html>
